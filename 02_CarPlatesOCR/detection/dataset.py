@@ -27,7 +27,7 @@ class DetectionDataset(Dataset):
                 image_names.append(item['file'])
                 mask_names.append(item['mask'])
             index+=1
-            if(index==n):
+            if(index>n):
                 break
 
         assert len(image_names) == len(mask_names), 'Images and masks length mismatch'

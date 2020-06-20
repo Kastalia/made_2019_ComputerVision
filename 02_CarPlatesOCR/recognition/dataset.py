@@ -34,7 +34,7 @@ class RecognitionDataset(Dataset):
                 texts.append(text)
                 image_names.append(image_name)
             index+=1
-            if(index==n):
+            if(index>n):
                 break
 
         return image_names, texts
