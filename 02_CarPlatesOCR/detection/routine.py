@@ -47,8 +47,8 @@ def train(net, optimizer, criterion, scheduler, epochs, train_dataloader, val_da
             scheduler.step(epoch)
 
         epoch_loss = 0.
-        tqdm_iter = tqdm.tqdm(enumerate(train_dataloader), total=len(train_dataloader))
         bce_epochHistory, dice_epochHistory = [], []
+        tqdm_iter = tqdm.tqdm(enumerate(train_dataloader), total=len(train_dataloader))
         for i, batch in tqdm_iter:
             imgs, true_masks = batch
             masks_pred = net(imgs.to(device))
@@ -88,7 +88,7 @@ def train(net, optimizer, criterion, scheduler, epochs, train_dataloader, val_da
                     ax[2][0].set_title('loss')
                     ax[2][1].plot(valDice_history, label='val dice')
                     ax[2][1].set_xlabel('epoch')
-                    ax[2][1].set_title('coef dice? dont known about what is it')
+                    ax[2][1].set_title('val dice')
                     plt.legend()
                     plt.show()
                     
@@ -117,3 +117,4 @@ def train(net, optimizer, criterion, scheduler, epochs, train_dataloader, val_da
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
     print('Best epoch:{:4f} val_dice:{:4f} train_loss:{:4f}'.format(best_model_info['epoch'], best_model_info['val_dice'], best_model_info['train_loss']))
+    

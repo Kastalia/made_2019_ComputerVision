@@ -3,7 +3,9 @@ import torch, torchvision
 from argparse import ArgumentParser
 from recognition.model import RecognitionModel
 from detection.unet import UNet
+from detection.maskrcnn import maskrcnn_resnet50_fpn
 from utils import prepare_for_inference, get_boxes_from_mask
+import segmentation_models_pytorch as smp
 
 
 def ocr_preprocess(image, output_size):
@@ -33,7 +35,9 @@ def main():
     rec_model_path = args.rec_model or os.path.join(cur_dir, 'pretrained', 'rec-crnn-30epoch_basic.pth')
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    seg_model = UNet()
+    #seg_model = UNet()
+    #seg_model = smp.Unet('resnext50_32x4d', encoder_weights='imagenet')
+    seg_model = maskrcnn_resnet50_fpn()
     seg_model.load_state_dict(torch.load(seg_model_path))
     seg_model.to(device)
     seg_model.eval()

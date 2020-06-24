@@ -91,3 +91,4 @@ class Flip(object):
         if np.random.uniform() > self.p:
             return image, mask
         return cv2.flip(image, 1), cv2.flip(mask, 1)
+
